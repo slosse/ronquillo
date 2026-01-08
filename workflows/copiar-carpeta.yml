@@ -1,0 +1,113 @@
+name: Copiar carpeta
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_dir:
+        description: "Carpeta origen (ej: qr-clientes/wabro)"
+        required: true
+        type: string
+      dest_dir:
+        description: "Carpeta destino (ej: qr-clientes/cliente2)"
+        required: true
+        type: string
+      target_branch:
+        description: "Branch destino (ej: main)"
+        required: true
+        default: "main"
+        type: string
+      overwrite:
+        description: "Sobrescribir destino si existe"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+permissions:
+  contents: write
+
+jobs:
+  copy-folder:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (branch objetivo)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.target_branch }}
+
+      - name: Validaciones
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          SRC="${{ inputs.source_dir }}"
+          DST="${{ inputs.dest_dir }}"
+          OVERWRITE="${{ inputs.overwrite }}"
+
+          # Normaliza (evita / al final)
+          SRC="${SRC%/}"
+          DST="${DST%/}"
+
+          echo "SRC=$SRC"
+          echo "DST=$DST"
+          echo "OVERWRITE=$OVERWRITE"
+
+          if [[ -z "$SRC" || -z "$DST" ]]; then
+            echo "❌ source_dir y dest_dir no pueden estar vacíos"
+            exit 1
+          fi
+
+          if [[ "$SRC" == "$DST" ]]; then
+            echo "❌ source_dir y dest_dir deben ser diferentes"
+            exit 1
+          fi
+
+          if [[ ! -d "$SRC" ]]; then
+            echo "❌ No existe la carpeta origen: $SRC"
+            echo "Contenido del repo:"
+            ls -la
+            exit 1
+          fi
+
+          if [[ -e "$DST" ]]; then
+            if [[ "$OVERWRITE" == "true" ]]; then
+              echo "⚠️ Destino existe. Se sobrescribe: $DST"
+              rm -rf "$DST"
+            else
+              echo "❌ Destino ya existe y overwrite=false: $DST"
+              exit 1
+            fi
+          fi
+
+      - name: Copiar carpeta
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="${{ inputs.source_dir }}"; SRC="${SRC%/}"
+          DST="${{ inputs.dest_dir }}";   DST="${DST%/}"
+
+          mkdir -p "$(dirname "$DST")"
+          cp -R "$SRC" "$DST"
+
+      - name: Commit & Push
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="${{ inputs.source_dir }}"; SRC="${SRC%/}"
+          DST="${{ inputs.dest_dir }}";   DST="${DST%/}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add "$DST"
+
+          if git diff --cached --quiet; then
+            echo "ℹ️ No hay cambios para commitear."
+            exit 0
+          fi
+
+          git commit -m "Copia carpeta: $SRC -> $DST"
+          git push origin "${{ inputs.target_branch }}"
