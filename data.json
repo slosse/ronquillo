@@ -1,0 +1,17 @@
+{
+  "title": "PRUEBA",
+  "intro": "Según lo establecido en la Resolución N°237/2024, presentamos la siguiente documentación:",
+  "rows": [
+    {
+      "modelo": "DARIENZO",
+      "producto": "1",
+      "url": "https://tusitio.com/docs/doc1.pdf",
+      "botonTexto": "Abrir documento"
+    },
+    {
+      "modelo": "TROILO",
+      "producto": "2",
+      "url": "https://tusitio.com/docs/doc2.pdf"
+    }
+  ]
+}
