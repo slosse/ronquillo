@@ -1,6 +1,6 @@
     :root { --max: 980px; }
     body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background: #f6f7f9; color: #111; }
-    header { background: #d3a5c9; border-bottom: 1px solid #e7e7e7; }
+    header { background: #fc6675; border-bottom: 1px solid #e7e7e7; }
     .wrap { max-width: var(--max); margin: 0 auto; padding: 24px 16px; }
     h1 { margin: 0 0 8px; font-size: 28px; }
     p  { margin: 0 0 16px; color: #444; line-height: 1.4; }
