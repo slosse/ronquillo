@@ -102,11 +102,23 @@ jobs:
           mkdir -p "$(dirname "$DST")"
           cp -R "$SRC" "$DST"
 
-      - name: Commit & Push
+          - name: Commit & Push
         shell: bash
         run: |
           set -euo pipefail
           SRC="clientes/${{ inputs.source_cliente }}"; SRC="${SRC%/}"
           DST="clientes/${{ inputs.dest_cliente }}";   DST="${DST%/}"
 
-          git config user.name
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add "$DST"
+
+          if git diff --cached --quiet; then
+            echo "ℹ️ No hay cambios para commitear."
+            exit 0
+          fi
+
+          git commit -m "Copia carpeta en clientes: $SRC -> $DST"
+          git push origin "${{ inputs.target_branch }}"
+
