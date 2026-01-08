@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       source_cliente:
-        description: "Nombre carpeta origen dentro de /clientes (ej: prueba)"
+        description: "Nombre carpeta origen dentro de /clientes (ej: acme)"
         required: true
         type: string
       dest_cliente:
-        description: "Nombre carpeta destino dentro de /clientes (ej: acme)"
+        description: "Nombre carpeta destino dentro de /clientes (ej: acme2)"
         required: true
         type: string
       target_branch:
