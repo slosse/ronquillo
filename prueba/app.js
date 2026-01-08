@@ -21,18 +21,29 @@ function render(rows) {
     const tr = document.createElement("tr");
 
     const tdModelo = document.createElement("td");
-    tdModelo.textContent = r.modelo;
+    tdModelo.textContent = r.modelo ?? "";
 
     const tdProducto = document.createElement("td");
-    tdProducto.textContent = r.producto;
+    tdProducto.textContent = r.producto ?? "";
 
     const tdDocumento = document.createElement("td");
     const a = document.createElement("a");
     a.className = "btn";
-    a.textContent = r.documento?.texto || "Ver documento";
-    a.href = r.documento?.url || "#";
+
+    // ✅ tu JSON: url + botonTexto (opcional)
+    a.textContent = r.botonTexto || "Ver documento";
+    a.href = r.url || "#";
     a.target = "_blank";
     a.rel = "noopener";
+
+    // opcional: si falta url, deshabilita visualmente
+    if (!r.url) {
+      a.removeAttribute("href");
+      a.style.pointerEvents = "none";
+      a.style.opacity = "0.5";
+      a.title = "Documento no disponible";
+    }
+
     tdDocumento.appendChild(a);
 
     tr.appendChild(tdModelo);
@@ -42,6 +53,7 @@ function render(rows) {
     tbody.appendChild(tr);
   }
 }
+
 
 function applyFilter() {
   const q = norm(document.getElementById("q").value);
