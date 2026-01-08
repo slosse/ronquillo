@@ -48,13 +48,11 @@ jobs:
           DST_NAME="${{ inputs.dest_cliente }}"
           OVERWRITE="${{ inputs.overwrite }}"
 
-          # Normaliza (evita / al final)
           SRC_NAME="${SRC_NAME%/}"
           DST_NAME="${DST_NAME%/}"
 
-          # Bloquea rutas raras tipo ../
           if [[ "$SRC_NAME" == *".."* || "$DST_NAME" == *".."* || "$SRC_NAME" == /* || "$DST_NAME" == /* ]]; then
-            echo "❌ Nombres inválidos. Usá solo el nombre de carpeta (sin ../ ni rutas absolutas)."
+            echo "❌ Nombres inválidos."
             exit 1
           fi
 
@@ -63,31 +61,19 @@ jobs:
 
           echo "SRC=$SRC"
           echo "DST=$DST"
-          echo "OVERWRITE=$OVERWRITE"
-
-          if [[ -z "$SRC_NAME" || -z "$DST_NAME" ]]; then
-            echo "❌ source_cliente y dest_cliente no pueden estar vacíos"
-            exit 1
-          fi
-
-          if [[ "$SRC" == "$DST" ]]; then
-            echo "❌ Origen y destino deben ser diferentes"
-            exit 1
-          fi
 
           if [[ ! -d "$SRC" ]]; then
             echo "❌ No existe la carpeta origen: $SRC"
-            echo "Contenido de /clientes:"
             ls -la "$BASE" || true
             exit 1
           fi
 
           if [[ -e "$DST" ]]; then
             if [[ "$OVERWRITE" == "true" ]]; then
-              echo "⚠️ Destino existe. Se sobrescribe: $DST"
+              echo "⚠️ Destino existe. Se sobrescribe."
               rm -rf "$DST"
             else
-              echo "❌ Destino ya existe y overwrite=false: $DST"
+              echo "❌ Destino existe y overwrite=false"
               exit 1
             fi
           fi
@@ -96,18 +82,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          SRC="clientes/${{ inputs.source_cliente }}"; SRC="${SRC%/}"
-          DST="clientes/${{ inputs.dest_cliente }}";   DST="${DST%/}"
+          SRC="clientes/${{ inputs.source_cliente }}"
+          DST="clientes/${{ inputs.dest_cliente }}"
 
           mkdir -p "$(dirname "$DST")"
           cp -R "$SRC" "$DST"
 
-          - name: Commit & Push
+      - name: Commit & Push
         shell: bash
         run: |
           set -euo pipefail
-          SRC="clientes/${{ inputs.source_cliente }}"; SRC="${SRC%/}"
-          DST="clientes/${{ inputs.dest_cliente }}";   DST="${DST%/}"
+          SRC="clientes/${{ inputs.source_cliente }}"
+          DST="clientes/${{ inputs.dest_cliente }}"
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -121,4 +107,3 @@ jobs:
 
           git commit -m "Copia carpeta en clientes: $SRC -> $DST"
           git push origin "${{ inputs.target_branch }}"
-
