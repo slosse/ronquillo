@@ -7,7 +7,7 @@
   <script>
     const parts = location.pathname.replace(/\/$/, "").split("/");
     const folder = parts[parts.length - 1];
-    location.replace(`../shared/index.html?data=../${folder}/data.json`);
+    location.replace(`../shared/template.html?data=../${folder}/data.json`);
   </script>
 </head>
 <body></body>
