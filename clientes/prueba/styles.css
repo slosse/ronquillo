@@ -73,3 +73,16 @@ footer p {
 .btn-email:hover {
   opacity: 0.9;
 }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
