@@ -33,5 +33,43 @@
     .empty { padding: 16px; color: #666; font-size: 14px; display:none; }
 
 footer {
-  background-color: inherit; /* o el mismo color que header */
+  background: #fc6675;
+  border-top: 1px solid #e7e7e7;
+}
+
+footer p {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Botones reutilizando tu .btn */
+.btn-whatsapp {
+  border-color: #25D366;
+  background: #25D366;
+  color: #fff;
+}
+
+.btn-email {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #fff;
+}
+
+.btn-whatsapp:hover,
+.btn-email:hover {
+  opacity: 0.9;
 }
