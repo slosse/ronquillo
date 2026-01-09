@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Documentos</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  
+</head>
+
+<body data-shared="../shared">
+  <header>
+    <div class="wrap">
+      <h1 id="pageTitle">Documentos</h1>
+      <p id="pageIntro">Listado de documentos asociados a modelos y productos.</p>
+
+      <div class="controls">
+        <div class="search">
+          <label for="q">Buscar</label>
+          <input id="q" type="search" placeholder="Modelo o producto..." autocomplete="off" />
+        </div>
+        <div class="badge"><span id="count">0</span> resultados</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="card">
+        <table aria-label="Tabla de documentos">
+          <thead>
+            <tr>
+              <th style="width: 35%;">Modelo</th>
+              <th style="width: 45%;">Producto</th>
+              <th style="width: 20%;">Documento</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div id="empty" class="empty">No hay resultados.</div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-slot"></div>
+
+  
+  
+ 
+ <script src="../shared/app.js"></script>
+</body>
+</html>
