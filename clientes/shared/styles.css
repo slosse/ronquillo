@@ -1,6 +1,7 @@
 :root {
   --max: 980px;
   --brand-color: #BE9DB1; /* color principal header + footer */
+  --brand-color-light: color-mix(in srgb, var(--brand-color) 80%, white 20%);
 }
 
 body {
@@ -129,7 +130,7 @@ tbody tr:last-child td {
   border: 1px solid #111;
   color: #fff;
   background: var(--brand-color);
-  border-color: #A8328C;
+  border-color: var(--brand-color-light);
 }
 
 .btn:hover {
