@@ -127,8 +127,12 @@ tbody tr:last-child td {
   padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid #111;
-  color: #111;
-  background: #fff;
+  color: #fff;
+  background: var(--brand-color)
+}
+
+.btn:hover {
+  opacity: 0.9;
 }
 
 .empty {
