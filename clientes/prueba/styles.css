@@ -5,6 +5,14 @@
     h1 { margin: 0 0 8px; font-size: 28px; }
     p  { margin: 0 0 16px; color: #444; line-height: 1.4; }
 
+    header h1 {
+      color: #fff;
+    }
+
+    header p {
+      color: #fff;
+    }
+
     .controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
     .search {
       flex: 1 1 360px; display: flex; align-items: center; gap: 10px;
