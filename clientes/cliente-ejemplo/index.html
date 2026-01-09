@@ -3,11 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cliente</title>
-<meta http-equiv="refresh" content="0; url=../shared/index.html?data=../data.json">
+  <title>Documentos</title>
   <script>
-    // fallback por si el meta refresh no corre
-    location.replace("../shared/index.html?data=../data.json");
+    // Detecta la carpeta actual y redirige al template compartido
+    // Ej: .../cliente-1/  -> folder = "cliente-1"
+    const parts = location.pathname.replace(/\/$/, "").split("/");
+    const folder = parts[parts.length - 1];
+
+    // Desde /shared/index.html, el json del cliente se ve como ../<folder>/data.json
+    location.replace(`../shared/index.html?data=../${folder}/data.json`);
   </script>
 </head>
 <body></body>
