@@ -128,7 +128,8 @@ tbody tr:last-child td {
   border-radius: 10px;
   border: 1px solid #111;
   color: #fff;
-  background: var(--brand-color)
+  background: var(--brand-color);
+  border-color: #A8328C;
 }
 
 .btn:hover {
