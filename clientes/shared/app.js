@@ -23,11 +23,11 @@ function render(rows) {
     const tr = document.createElement("tr");
 
     const tdModel = document.createElement("td");
-    tdModel.textContent = r.model ?? "";
+    tdModel.textContent = r.modelo ?? "";
     tr.appendChild(tdModel);
 
     const tdProduct = document.createElement("td");
-    tdProduct.textContent = r.product ?? "";
+    tdProduct.textContent = r.producto ?? "";
     tr.appendChild(tdProduct);
 
     const tdDoc = document.createElement("td");
@@ -54,8 +54,8 @@ function applyFilter() {
 
   const filtered = allRows.filter((r) => {
     return (
-      norm(r.model).includes(q) ||
-      norm(r.product).includes(q) ||
+      norm(r.modelo).includes(q) ||
+      norm(r.producto).includes(q) ||
       norm(r.label).includes(q)
     );
   });
